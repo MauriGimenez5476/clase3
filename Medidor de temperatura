@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class Clase_3 {
+public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Definición de parámetros predeterminados
+        double[][] temperaturasPredeterminadas = {
+                {10.0, 20.0, 20.0}, // Mañana: Buena, Normal, Peligrosa
+                {20.0, 30.0, 30.0}, // Tarde: Buena, Normal, Peligrosa
+                {15.0, 25.0, 25.0}  // Noche: Buena, Normal, Peligrosa
+        };
+
+        // Solicitud de datos al usuario
+        System.out.println("¿Qué momento del día es? (mañana, tarde, noche):");
+        String momentoDia = scanner.nextLine().toLowerCase();
+        System.out.println("¿Cuál es la temperatura actual del tanque?");
+        double temperaturaActual = scanner.nextDouble();
+
+        // Obtener índice correspondiente al momento del día
+        int indiceMomentoDia = obtenerIndiceMomentoDia(momentoDia);
+
+        // Evaluación de la temperatura
+        String estadoTemperatura = evaluarTemperatura(temperaturaActual, temperaturasPredeterminadas[indiceMomentoDia]);
+
+        // Resultado de la evaluación
+        System.out.println("La temperatura del tanque es: " + estadoTemperatura);
+    }
+
+    // Método para obtener el índice al momento del día
+    private static int obtenerIndiceMomentoDia(String momentoDia) {
+        switch (momentoDia) {
+            case "mañana":
+                return 0;
+            case "tarde":
+                return 1;
+            case "noche":
+                return 2;
+            default:
+                return -1;
+        }
+    }
+
+    // Método para evaluar la temperatura
+    private static String evaluarTemperatura(double temperaturaActual, double[] temperaturasPredeterminadas) {
+        if (temperaturaActual < temperaturasPredeterminadas[0]) {
+            return "Buena";
+        }
+        if (temperaturaActual <= temperaturasPredeterminadas[2]) {
+            return "Normal";
+        }
+        return "Peligrosa";
+    }
+
+}
